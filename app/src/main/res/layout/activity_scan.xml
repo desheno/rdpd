@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    tools:context=".Scan">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/white"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnScanUpload"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/btn_background"
+        android:fontFamily="@font/opensans"
+        android:textColor="@color/white"
+        android:text="@string/take_a_picture" />
+
+    <Button
+        android:id="@+id/btnPickImage"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="226dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/btn_background"
+        android:fontFamily="@font/opensans"
+        android:textColor="@color/white"
+        android:text="@string/pickImage" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/btnScanUpload"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:id="@+id/imageHere"
+        android:layout_width="294dp"
+        android:layout_height="248dp"
+        android:layout_below="@+id/btnScanUpload"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/scanned_picture"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageHere"
+        android:fontFamily="@font/opensans"
+        android:text="@string/result"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_marginTop="10sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/confidence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/opensans"
+        android:text="@string/confidence"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDiagnose"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/confidence"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_curve"
+        android:fontFamily="@font/opensans"
+        android:text="@string/diagnose"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1006324568311",
+    "firebase_url": "https://riceappdb-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "riceappdb",
+    "storage_bucket": "riceappdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006324568311:android:e3561b3024996c496b03f2",
+        "android_client_info": {
+          "package_name": "com.example.ricetreatment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006324568311-cdle4r74ermqcnpvg57mv8a477ps9n34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlBzLRz8xQen1Iwvu6wNmx9vzLK1y9SVM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006324568311-cdle4r74ermqcnpvg57mv8a477ps9n34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
