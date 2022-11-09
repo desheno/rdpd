@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RiceTreatment</string>
+    <string name="app_name">Leafcross</string>
     <string name="login">Let\'s Login</string>
     <string name="register">Create an Account</string>
     <string name="logo">Logo</string>
@@ -69,23 +69,6 @@
     <string name="disease_name_or_pest_name">Disease Name or Pest Name:</string>
     <string name="why_and_where_it_occurs">Why and where it occurs:</string>
     <string name="how_to_identify">How to Identify:</string>
-    <string-array name="disease_gallery">
-        <item> Bacterial Blight </item>
-        <item> Blast </item>
-        <item> Brown Spot </item>
-        <item> Nitrogen(N) </item>
-        <item> Phosphorus(P) </item>
-        <item> Potassium(K) </item>
-        <item> Tungro </item>
-    </string-array>
-
-    <string-array name="disease_description">
-        <item> Why and where it occurs: </item>
-        <item> Why and where it occurs: </item>
-        <item> Why and where it occurs: </item>
-        <item> Why and where it occurs: </item>
-        <item> Why and where it occurs: </item>
-        <item> Why and where it occurs: </item>
-        <item> Why and where it occurs: </item>
-    </string-array>
+    
+    <string name="select">Select Field Type</string>
 </resources>

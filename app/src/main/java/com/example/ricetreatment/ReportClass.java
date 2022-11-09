@@ -21,9 +21,17 @@ public class ReportClass {
         this.comments = comments;
     }
 
-    public String getDiseaseName() {
-        return diseaseName;
-    }
+    public void setDiseaseName(String diseaseName) { this.diseaseName = diseaseName; }
+
+    public void setFieldType(String fieldType) { this.fieldType = fieldType; }
+
+    public void setLocationArea(String locationArea) { this.locationArea = locationArea; }
+
+    public void setTreatmentPlan(String treatmentPlan) { this.treatmentPlan = treatmentPlan; }
+
+    public void setComments(String comments) { this.comments = comments; }
+
+    public String getDiseaseName() { return diseaseName; }
 
     public String getFieldType() {
         return fieldType;

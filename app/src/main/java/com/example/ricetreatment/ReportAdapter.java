@@ -1,9 +1,11 @@
 package com.example.ricetreatment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,12 +33,24 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull ReportAdapter.MyViewHolder holder, int position) {
         ReportClass reportClass = list.get(position);
+
         holder.diseaseName.setText(reportClass.getDiseaseName());
-        holder.fieldType.setText(reportClass.getFieldType());
-        holder.locationProblem.setText(reportClass.getLocationArea());
-        holder.treatmentPlan.setText(reportClass.getTreatmentPlan());
         holder.comments.setText(reportClass.getComments());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ReportDetails.class);
+                intent.putExtra("singleDiagnosis", reportClass.getDiseaseName());
+                intent.putExtra("singleField", reportClass.getFieldType());
+                intent.putExtra("singleLocation", reportClass.getLocationArea());
+                intent.putExtra("singleTreatment", reportClass.getTreatmentPlan());
+                intent.putExtra("singleComment", reportClass.getComments());
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -45,14 +59,14 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView diseaseName, fieldType, locationProblem, treatmentPlan, comments;
+
+        TextView diseaseName, comments;
+        RelativeLayout mainLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            diseaseName = itemView.findViewById(R.id.textDiseaseName);
-            fieldType = itemView.findViewById(R.id.textFieldType);
-            locationProblem = itemView.findViewById(R.id.textLocationProblem);
-            treatmentPlan = itemView.findViewById(R.id.textTreatmentPlan);
-            comments = itemView.findViewById(R.id.textComments);
+            diseaseName = itemView.findViewById(R.id.diseaseName);
+            comments = itemView.findViewById(R.id.viewReport);
+            mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
 }

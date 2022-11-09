@@ -113,7 +113,7 @@
                                 android:id="@+id/btnScan"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/colorPrimaryDark"
+                                android:background="@color/lightish"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -177,7 +177,7 @@
                                 android:id="@+id/btnDiseasePest"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/colorPrimaryDark"
+                                android:background="@color/lightish"
                                 android:orientation="vertical">
 
                                 <ImageView

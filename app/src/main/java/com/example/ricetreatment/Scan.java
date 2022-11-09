@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,16 +17,25 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ricetreatment.ml.Model;
+import com.example.ricetreatment.ml.ModelUnquant4;
 import com.example.ricetreatment.ml.Modeltf;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
@@ -30,6 +43,9 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 public class Scan extends AppCompatActivity {
@@ -38,8 +54,16 @@ public class Scan extends AppCompatActivity {
     //Button manualInput;
     Button diagnose;
     ImageView imageView;
-    TextView result, confidence;
+    EditText result;
+    TextView holder;
     int imageSize = 224;
+
+    RecyclerView recyclerView;
+    List<DiseaseModel> recycleList;
+    List<DiseaseModel> filterList = new ArrayList<>();
+    DiseaseAdapter adapter;
+
+    FirebaseDatabase firebaseDatabase;
 
     //int SELECT_IMAGE_CODE=1;
     @Override
@@ -55,14 +79,88 @@ public class Scan extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        recyclerView = findViewById(R.id.imageRecycler);
+        recycleList = new ArrayList<>();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("NetworkOffline");
+        reference.keepSynced(true);
+
+        DiseaseAdapter recyclerAdapter = new DiseaseAdapter((ArrayList<DiseaseModel>) recycleList, getApplicationContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.suppressLayout(true);
+        recyclerView.setAdapter(recyclerAdapter);
+
+        firebaseDatabase.getReference().child("Disease").addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            DiseaseModel diseaseModel = dataSnapshot.getValue(DiseaseModel.class);
+                            assert diseaseModel != null;
+                            recycleList.add(diseaseModel);
+                }
+                recyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         pickImage = findViewById(R.id.btnPickImage);
         openCamera = findViewById(R.id.btnScanUpload);
-        diagnose = findViewById(R.id.btnDiagnose);
         //manualInput = findViewById(R.id.btnManualInput);
         imageView = findViewById(R.id.imageHere);
         result = findViewById(R.id.result);
-        confidence = findViewById(R.id.confidence);
+        //holder = findViewById(R.id.holder);
 
+        result.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().isEmpty()) {
+                    DiseaseAdapter recyclerAdapter = new DiseaseAdapter((ArrayList<DiseaseModel>) recycleList, getApplicationContext());
+                    recyclerView.setAdapter(recyclerAdapter);
+
+                    firebaseDatabase.getReference().child("Disease").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                DiseaseModel diseaseModel = dataSnapshot.getValue(DiseaseModel.class);
+                                assert diseaseModel != null;
+                                recycleList.add(diseaseModel);
+                            }
+                            recyclerAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+                else {
+                    Filter(s.toString());
+                }
+            }
+        });
         openCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,46 +181,40 @@ public class Scan extends AppCompatActivity {
 
             }
         });
+    }
 
-        diagnose.setOnClickListener(new View.OnClickListener() {
+    private void Filter(String text) {
+        for (DiseaseModel disease: recycleList) {
+            if (disease.getDiseaseName().equals(text)) {
+                filterList.clear();
+                filterList.add(disease);
+            }
+        }
+        DiseaseAdapter recyclerAdapter = new DiseaseAdapter((ArrayList<DiseaseModel>) filterList, getApplicationContext());
+        recyclerView.setAdapter(recyclerAdapter);
+
+        firebaseDatabase.getReference().child("Disease").addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Scan.this, Gallery.class));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    DiseaseModel diseaseModel = dataSnapshot.getValue(DiseaseModel.class);
+                    assert diseaseModel != null;
+                    filterList.add(diseaseModel);
+                }
+                recyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-        /*manualInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Scan.this, SymptomsInput.class);
-                startActivity(intent);
-            }
-        });*/
-
-        /*openCamera.setOnClickListener(v -> {
-            try {
-                Intent intent1 = new Intent();
-                intent1.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivity(intent1);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        });
-        pickImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Title"), SELECT_IMAGE_CODE);
-            }
-        });*/
     }
 
     public void classifyImage(Bitmap image) {
         try {
-            Modeltf model = Modeltf.newInstance(getApplicationContext());
+            ModelUnquant4 model = ModelUnquant4.newInstance(getApplicationContext());
 
             //creates input reference
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -146,7 +238,7 @@ public class Scan extends AppCompatActivity {
             inputFeature0.loadBuffer(byteBuffer);
 
             //runs model inference and gets result
-            Modeltf.Outputs outputs = model.process(inputFeature0);
+            ModelUnquant4.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
@@ -159,17 +251,29 @@ public class Scan extends AppCompatActivity {
                     maxPos = i;
                 }
             }
-            String[] classes = {"Bacterialblight", "Blast", "Brownspot", "Healthy","Leaf smut", "Nitrogen(N)", "Phosphorus(P)", "Potassium(K)"};
+            String[] classes = {"Aphids", "Bacterial Leaf Blight", "Blast", "Brownspot","Crickets", "Fall Armyworm", "False Smut", "Leaf Scald", "Leaf Smuf", "Mealybug", "Nitrogen (N) Deficiency ", "Phosphorus (P) Deficiency ", "Potassium (K) Deficiency ", "Rats", "Rice Bug", "Snail", "Unknown"};
             result.setText(classes[maxPos]);
+            if (result.getText().toString().equals("Unknown")) {
+                recyclerView.setVisibility(View.INVISIBLE);
+                recyclerView.setNestedScrollingEnabled(false);
+                recyclerView.suppressLayout(true);
+            }
+            else {
+                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.setNestedScrollingEnabled(false);
+                recyclerView.suppressLayout(true);
+            }
 
-            String s = "";
-            s += String.format("%s: %.1f%%\n", "Confidence",confidences[maxPos]*100);
+            //holder.setText(classes[maxPos]);
+            //holder.setVisibility(View.VISIBLE);
+            //String s = "";
+            //s += String.format("%s: %.1f%%\n", "Confidence",confidences[maxPos]*100);
 
-            confidence.setText(s);
+            //confidence.setText(s);
 
             //release model resource if no longer used
             model.close();
-        }catch (IOException e) {
+        } catch (IOException ignored) {
 
         }
     }
@@ -185,6 +289,7 @@ public class Scan extends AppCompatActivity {
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
             } else {
+                assert data != null;
                 Uri dat = data.getData();
                 Bitmap image = null;
                 try {
@@ -200,19 +305,13 @@ public class Scan extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
 
-        /*if (requestCode == 1) {
-            Uri uri = data.getData();
-            imageView.setImageURI(uri);
-        }*/
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

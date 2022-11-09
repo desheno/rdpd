@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Report">
 
@@ -14,30 +15,33 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:titleTextColor="@color/white"
-        android:background="@color/colorPrimaryDark" />
-    
+        android:background="@color/lightish" />
+
+    <Button
+        android:id="@+id/btnWrite"
+        android:text="Write a Report"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:background="@drawable/btn_curvish"
+        android:drawablePadding="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:background="#DEDEDE"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center" >
 
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/reportsRecycler"
+           android:background="@color/white"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
 
     </RelativeLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/writeReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:background="@color/colorPrimaryDark"
-        android:src="@drawable/ic_report_24"
-        tools:ignore="SpeakableTextPresentCheck" />
-
 </LinearLayout>

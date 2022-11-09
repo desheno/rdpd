@@ -1,11 +1,13 @@
 package com.example.ricetreatment;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
@@ -33,14 +36,10 @@ public class Dashboard extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    private FirebaseUser user;
-    private DatabaseReference reference;
-
-    private String userName;
-    private String userEmail;
+    private TextView userName, fullName;
+    AlertDialog.Builder builder;
 
     public BottomNavigationView bottomNavigationView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +49,13 @@ public class Dashboard extends AppCompatActivity {
         LinearLayout diseasePest = findViewById(R.id.btnDiseasePest);
         LinearLayout reports = findViewById(R.id.btnReports);
 
+        userName = findViewById(R.id.UName);
+        fullName = findViewById(R.id.FName);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        builder = new AlertDialog.Builder(this);
+
+        showAccountDetails();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -60,13 +64,13 @@ public class Dashboard extends AppCompatActivity {
                     case R.id.nav_about:
                         startActivity(new Intent(getApplicationContext(), AboutApp.class));
                         overridePendingTransition(0, 0);
-                        return true;
+                        return false;
                     case R.id.nav_home:
                         return true;
                     case R.id.nav_logout:
-                        startActivity(new Intent(getApplicationContext(), Account.class));
+                        isUser();
                         overridePendingTransition(0, 0);
-                        return true;
+                        return false;
                 }
                 return false;
             }
@@ -87,34 +91,79 @@ public class Dashboard extends AppCompatActivity {
             Intent intent = new Intent(Dashboard.this, Report.class);
             startActivity(intent);
         });
+    }
 
-        /*user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        userName = user.getUid();
+    private void showAccountDetails() {
+        Intent intent = getIntent();
+        String user_fullName = intent.getStringExtra("fullName");
+        String user_username = intent.getStringExtra("username");
 
-        final TextView nameTextView = findViewById(R.id.fullName);
-        //final TextView emailTextView = findViewById(R.id.fullEmail);
+        userName.setText(user_username);
+        fullName.setText(user_fullName);
+    }
 
-        reference.child(userName).addListenerForSingleValueEvent(new ValueEventListener() {
+    @Override
+    public void onBackPressed()
+    {
+        builder.setMessage("Do you want to Logout?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setTitle("Logout");
+        alertDialog.show();
+    }
+
+    private void isUser() {
+        final String uName = userName.getText().toString().trim();
+        final String fName = fullName.getText().toString().trim();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+        Query checkUser = reference.orderByChild("username").equalTo(uName);
+
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users userProfile = snapshot.getValue(Users.class);
+                if (snapshot.exists()) {
+                    userName.setError(null);
+                    String fullnameDB = snapshot.child(uName).child("fullName").getValue(String.class);
+                    assert fullnameDB != null;
+                    if (fullnameDB.equals(fName)) {
+                        String userDB = snapshot.child(uName).child("username").getValue(String.class);
+                        String addressDB = snapshot.child(uName).child("address").getValue(String.class);
+                        String contactDB = snapshot.child(uName).child("contact").getValue(String.class);
+                        String emailDB = snapshot.child(uName).child("email").getValue(String.class);
+                        String passwordDB = snapshot.child(uName).child("password").getValue(String.class);
 
-                if (userProfile != null) {
-                    String fullName = userProfile.fullName;
-                    String email = userProfile.email;
+                        Intent intent = new Intent(getApplicationContext(), Account.class);
 
-                    nameTextView.setText(fullName);
-                    //emailTextView.setText(email);
-
+                        intent.putExtra("fullName", fullnameDB);
+                        intent.putExtra("username", userDB);
+                        intent.putExtra("address", addressDB);
+                        intent.putExtra("contact", contactDB);
+                        intent.putExtra("email", emailDB);
+                        intent.putExtra("password", passwordDB);
+                        startActivity(intent);
+                    }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Dashboard.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
 
             }
-        }); */
+        });
     }
 }

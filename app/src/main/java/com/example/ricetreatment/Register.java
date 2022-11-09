@@ -17,34 +17,41 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.HashMap;
 
-public class Register extends AppCompatActivity implements View.OnClickListener {
+public class Register extends AppCompatActivity {
 
-    private TextView banner, registerUser;
-    private EditText editFullName, editAddress, editContact, editEmail, editPassword;
+    private EditText editFullName, editUserName, editAddress, editContact, editEmail, editPassword;
 
-    private FirebaseAuth mAuth;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        registerUser = (Button) findViewById(R.id.btnRegister);
-        registerUser.setOnClickListener(this);
-
         editFullName = (EditText) findViewById(R.id.txtName);
+        editUserName = (EditText) findViewById(R.id.txtUserName);
         editAddress = (EditText)  findViewById(R.id.txtAddress);
         editContact= (EditText)  findViewById(R.id.txtContact);
         editEmail= (EditText) findViewById(R.id.txtEmail);
         editPassword = (EditText)  findViewById(R.id.txtPassword);
         Button register = findViewById(R.id.btnRegister);
         ImageView imgBack = findViewById(R.id.imgBackLogin);
-        TextView txtBack = findViewById(R.id.txtBackLogin);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("Users");
+
+                registerUser();
+            }
+        });
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,104 +60,122 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 overridePendingTransition(R.anim.slide_in_left, R.anim.fab_close);
             }
         });
-
-        txtBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.fab_close);
-            }
-        });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnRegister:
-                registerUser();
-                break;
+    private Boolean validateName() {
+        String val = editFullName.getText().toString();
+        if (val.isEmpty()) {
+            editFullName.setError("Name cannot be empty");
+            return false;
+        }
+        else {
+            editFullName.setError(null);
+            return true;
         }
     }
 
+    private Boolean validateUName() {
+        String val = editUserName.getText().toString();
+        if (val.isEmpty()) {
+            editUserName.setError("Username cannot be empty");
+            return false;
+        }
+        else {
+            editUserName.setError(null);
+            return true;
+        }
+    }
+
+    private Boolean validateAddress() {
+        String val = editAddress.getText().toString();
+        String emailPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+        if (val.isEmpty()) {
+            editAddress.setError("Address cannot be empty");
+            return false;
+        }
+        else if(val.matches(emailPattern)) {
+            editAddress.setError("Address cannot be empty");
+            return false;
+        }
+        else {
+            editAddress.setError(null);
+            return true;
+        }
+    }
+
+    private Boolean validateContact() {
+        String val = editContact.getText().toString();
+        if (val.isEmpty()) {
+            editContact.setError("Contact number cannot be empty");
+            return false;
+        }
+        else {
+            editContact.setError(null);
+            return true;
+        }
+    }
+
+    private Boolean validateEmail() {
+        String val = editEmail.getText().toString();
+        if (val.isEmpty()) {
+            editEmail.setError("Name cannot be empty");
+            return false;
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(val).matches()) {
+            editEmail.setError("Provide a valid email address");
+            return false;
+        }
+        else {
+            editFullName.setError(null);
+            return true;
+        }
+    }
+
+    private Boolean validatePassword() {
+        String val = editPassword.getText().toString();
+        String passwordVal = ".{4,}";
+        if (val.isEmpty()) {
+            editPassword.setError("Password cannot be empty");
+            return false;
+        }
+        else if (!val.matches(passwordVal)) {
+            editPassword.setError("Password must be atleast 5 characters");
+            return false;
+        }
+        else {
+            editPassword.setError(null);
+            return true;
+        }
+    }
+
+    public void registerUser() {
+        if (!validateName() | !validateUName() | !validateAddress() | !validateContact() | !validateEmail() | !validatePassword()) {
+            return;
+        }
+
+        String name = editFullName.getText().toString();
+        String username = editUserName.getText().toString();
+        String address = editAddress.getText().toString();
+        String contact = editContact.getText().toString();
+        String email = editEmail.getText().toString();
+        String password = editPassword.getText().toString();
+
+        Users users = new Users(name, username, address, contact, email, password);
+
+        reference.child(username).setValue(users);
+
+        Toast.makeText(Register.this, "You have successfully registered your account.", Toast.LENGTH_SHORT).show();
+        editUserName.setText("");
+        editFullName.setText("");
+        editAddress.setText("");
+        editContact.setText("");
+        editEmail.setText("");
+        editPassword.setText("");
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.stay, R.anim.slide_in_left);
-    }
-    private void registerUser() {
-        String fullName = editFullName.getText().toString().trim();
-        String address = editAddress.getText().toString().trim();
-        String contact = editContact.getText().toString().trim();
-        String email = editEmail.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
-
-        if(fullName.isEmpty()) {
-            editFullName.setError("Full Name is required!");
-            editFullName.requestFocus();
-            return;
-        }
-
-        if (address.isEmpty()) {
-            editAddress.setError("Address is required!");
-            editAddress.requestFocus();
-            return;
-        }
-
-        if (contact.isEmpty()) {
-            editContact.setError("Contact number is required!");
-            editContact.requestFocus();
-            return;
-        }
-
-        if (email.isEmpty()) {
-            editEmail.setError("Email Address is required!");
-            editEmail.requestFocus();
-            return;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editEmail.setError("Please provide a valid email address!");
-            editEmail.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-            editPassword.setError("Password is required!");
-            editPassword.requestFocus();
-            return;
-        }
-
-        if (password.length() < 6) {
-            editPassword.setError("Minimum password length should be at least 6 characters!");
-            editPassword.requestFocus();
-            return;
-        }
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Users users = new Users(fullName, address, contact, email, password);
-
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(Register.this, "User has been registered successfully!", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else {
-                                        Toast.makeText(Register.this, "Failed to register!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        }
-                        else {
-                            Toast.makeText(Register.this, "Failed to register!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 }

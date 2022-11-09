@@ -18,9 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
@@ -30,12 +28,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
 
             android:paddingLeft="@dimen/horizontal_dashboard"
             android:paddingTop="@dimen/fab_margin"
             android:paddingRight="@dimen/horizontal_dashboard"
-
 
             android:weightSum="100">
 
@@ -43,25 +40,49 @@
                 android:layout_width="298dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_weight="40"
+                android:layout_weight="50"
                 android:fontFamily="@font/bariol_bold"
                 android:text="Hey, Welcome!"
                 android:textColor="@color/white"
-                android:textSize="30dp">
-
-
+                android:textSize="30sp">
             </TextView>
 
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="98dp"
-                android:layout_weight="60"
-                android:scaleType="centerCrop"
-                android:src="@drawable/logosmall">
+            <TextView
+                android:id="@+id/FName"
+                android:layout_width="298dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="45"
+                android:fontFamily="@font/bariol_bold"
+                android:text="Please wait..."
+                android:textColor="@color/white"
+                android:textSize="20sp">
+            </TextView>
 
-            </ImageView>
+            <TextView
+                android:layout_width="298dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bariol_bold"
+                android:text="Username:"
+                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/UName"
+                android:layout_width="298dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_marginStart="20dp"
+                android:layout_weight="45"
+                android:fontFamily="@font/bariol_bold"
+                android:text="Please wait..."
+                android:textColor="@color/white"
+                android:textSize="20sp">
+            </TextView>
+
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,6 +113,7 @@
                         android:id="@+id/ll_firstcoureses"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:layout_marginLeft="@dimen/horizontal_dashboard"
                         android:layout_marginTop="@dimen/normalPadding"
                         android:layout_marginRight="@dimen/horizontal_dashboard"
@@ -104,9 +126,11 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
 
+                            android:elevation="10dp"
+                            android:padding="10dp"
+
                             android:layout_marginTop="@dimen/horizontal_card"
                             android:layout_marginEnd="@dimen/horizontal_card"
-                            android:layout_marginRight="@dimen/horizontal_card"
                             android:layout_marginBottom="@dimen/horizontal_card"
 
                             android:layout_weight="1"
@@ -122,9 +146,10 @@
 
                             <LinearLayout
                                 android:id="@+id/btnScan"
+
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/colorPrimaryDark"
+                                android:background="@color/lightish"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -145,7 +170,7 @@
                                     android:fontFamily="@font/bariol_bold"
                                     android:text="Scan or Upload"
                                     android:textColor="@color/white"
-                                    android:textSize="21dp" />
+                                    android:textSize="21sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -173,7 +198,9 @@
 
                             android:layout_height="wrap_content"
 
-                            android:layout_marginLeft="@dimen/horizontal_card"
+                            android:elevation="10dp"
+                            android:padding="10dp"
+                            android:layout_marginStart="@dimen/horizontal_card"
                             android:layout_marginTop="@dimen/horizontal_card"
                             android:layout_marginBottom="@dimen/horizontal_card"
 
@@ -188,7 +215,7 @@
                                 android:id="@+id/btnDiseasePest"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/colorPrimaryDark"
+                                android:background="@color/lightish"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -210,7 +237,7 @@
                                     android:fontFamily="@font/bariol_bold"
                                     android:text="Diseases and Pests"
                                     android:textColor="@color/white"
-                                    android:textSize="20dp" />
+                                    android:textSize="20sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -236,7 +263,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/horizontal_dashboard"
-                        android:layout_marginTop="@dimen/normalPadding"
+                        android:layout_marginTop="5dp"
                         android:layout_marginRight="@dimen/horizontal_dashboard"
                         android:gravity="center_horizontal"
                         android:orientation="horizontal"
@@ -248,8 +275,10 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
 
+                            android:elevation="10dp"
+                            android:padding="10dp"
                             android:layout_marginTop="@dimen/horizontal_card"
-                            android:layout_marginRight="@dimen/horizontal_card"
+                            android:layout_marginEnd="@dimen/horizontal_card"
                             android:layout_marginBottom="@dimen/horizontal_card"
                             android:layout_weight="1"
                             android:clickable="true"
@@ -266,7 +295,7 @@
                                 android:id="@+id/btnReports"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/colorPrimaryDark"
+                                android:background="@color/lightish"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -315,7 +344,7 @@
 
                             android:layout_height="wrap_content"
 
-                            android:layout_marginLeft="@dimen/horizontal_card"
+                            android:layout_marginStart="@dimen/horizontal_card"
                             android:layout_marginTop="@dimen/horizontal_card"
                             android:layout_marginBottom="@dimen/horizontal_card"
 

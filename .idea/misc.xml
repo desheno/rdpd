@@ -8,6 +8,12 @@
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/background_edit.xml" value="0.1355" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/btn_background.xml" value="0.1355" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/btn_curve.xml" value="0.171" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/btn_curvish.xml" value="0.171" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/btn_curvish_small.xml" value="0.159" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/btn_lightish.xml" value="0.171" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/btn_logish.xml" value="0.1705" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/custom_input.xml" value="0.171" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/elevated_gray.xml" value="0.159" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/ic_about.xml" value="0.1875" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/ic_account_background.xml" value="0.1875" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/ic_account_foreground.xml" value="0.1875" />
@@ -16,6 +22,9 @@
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1875" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/ic_logout.xml" value="0.1875" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/ic_report.xml" value="0.1355" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/shadow.xml" value="0.1345" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/shadown.xml" value="0.1345" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/drawable/spinner_background.xml" value="0.159" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_about_app.xml" value="0.264" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_account.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_add_form.xml" value="0.264" />
@@ -30,17 +39,22 @@
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_no_account.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_report.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_report_description.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_report_details.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_scan.xml" value="0.264" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_splashscreen.xml" value="0.264" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_symptoms_input.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_user_login.xml" value="0.264" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_view_list.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_view_pdf.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_view_pdfactivity.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/activity_write_report.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/app_bar_main_dashboard.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/content_main_dashboard.xml" value="0.13513513513513514" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/fragment_gallery.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/fragment_home.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/fragment_slideshow.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/list_item.xml" value="0.253125" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/nav_header_main_dashboard.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/reports_entry.xml" value="0.30160857908847183" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/layout/row_custom_recycler_item.xml" value="0.264" />
@@ -50,6 +64,9 @@
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/menu/main_dashboard.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/mipmap-anydpi-v26/ic_account.xml" value="0.1" />
         <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/mipmap-anydpi-v26/ic_account_round.xml" value="0.1" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1345" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
+        <entry key="..\:/Users/Frisky/AndroidStudioProjects/RiceTreatment/app/src/main/res/xml/provider_paths.xml" value="0.1" />
       </map>
     </option>
   </component>

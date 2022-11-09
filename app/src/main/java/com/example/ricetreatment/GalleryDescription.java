@@ -1,46 +1,48 @@
 package com.example.ricetreatment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 public class GalleryDescription extends AppCompatActivity {
 
-    ImageView mainImage;
-    TextView title, description;
+    ImageView singleImage;
+    TextView singleDisease, singleDescription, singleOccurs, singleIdentify, singleManage;
 
-    String data1, data2;
-    int myImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_description);
 
-        mainImage = findViewById(R.id.mainImageView);
-        title = findViewById(R.id.imageTitle);
-        description = findViewById(R.id.imageDescription);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        getData();
-        setData();
-    }
+        getSupportActionBar().setTitle("Disease Information");
 
-    private void getData() {
-        if (getIntent().hasExtra("myImage") && getIntent().hasExtra("data1") && getIntent().hasExtra("data2")) {
-            data1 = getIntent().getStringExtra("data1");
-            data2 = getIntent().getStringExtra("data2");
-            myImage = getIntent().getIntExtra("myImage", 1);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        }else {
-            Toast.makeText(this, "No Data.", Toast.LENGTH_SHORT).show();
-        }
-    }
+        singleImage = findViewById(R.id.singleImage);
+        singleDisease = findViewById(R.id.singleDisease);
+        singleDescription = findViewById(R.id.singleDescription);
+        singleOccurs = findViewById(R.id.singleOccurs);
+        singleIdentify = findViewById(R.id.singleIdentify);
+        singleManage = findViewById(R.id.singleManage);
 
-    private void setData() {
-        title.setText(data1);
-        description.setText(data2);
-        mainImage.setImageResource(myImage);
+        Picasso.get().load(getIntent().getStringExtra("singleImage"))
+                .placeholder(R.drawable.img_loading)
+                .into(singleImage);
+
+        singleDisease.setText(getIntent().getStringExtra("singleDisease"));
+        singleDescription.setText(getIntent().getStringExtra("singleDescription"));
+        singleOccurs.setText(getIntent().getStringExtra("singleOccurs"));
+        singleIdentify.setText(getIntent().getStringExtra("singleIdentify"));
+        singleManage.setText(getIntent().getStringExtra("singleManage"));
+
     }
 }

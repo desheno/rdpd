@@ -5,58 +5,180 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout_editor_absoluteX="1dp"
-    tools:layout_editor_absoluteY="1dp">
+    tools:layout_editor_absoluteY="1dp"
+    tools:context=".GalleryDescription" >
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:cardBackgroundColor="@color/whiteTextColor"
-        app:cardCornerRadius="10dp">
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightish"
+            app:titleTextColor="@color/white"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/singleImage"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="@drawable/elevated_gray"
+            android:elevation="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/img_loading" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/mainImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bacterialblight" />
+        <TextView
+            android:id="@+id/singleDisease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_gravity="center"
+            android:text="Disease Name"
+            android:fontFamily="@font/bariol_bold"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/elevated_gray"
+            android:layout_marginStart="20sp"
+            android:layout_marginEnd="20sp"
+            android:elevation="10dp"
+            android:padding="10dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/imageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="TextView"
-                android:fontFamily="@font/opensans"
-                android:textSize="30sp"
+                android:text="What it does?"
+                android:fontFamily="@font/bariol_bold"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mainImageView" />
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
 
             <TextView
-                android:id="@+id/imageDescription"
+                android:id="@+id/singleDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:fontFamily="@font/opensans"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageTitle" />
+                android:text="What it does."
+                android:fontFamily="@font/bariol_regular"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/elevated_gray"
+            android:layout_marginTop="10sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginEnd="20sp"
+            android:elevation="10dp"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Why and where it occurs:"
+                android:fontFamily="@font/bariol_bold"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/singleOccurs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Why it occurs."
+                android:fontFamily="@font/bariol_regular"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/elevated_gray"
+            android:layout_marginTop="10sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginEnd="20sp"
+            android:elevation="10dp"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to identify:"
+                android:fontFamily="@font/bariol_bold"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/singleIdentify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to identify."
+                android:fontFamily="@font/bariol_regular"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/elevated_gray"
+            android:layout_marginTop="10sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginEnd="20sp"
+            android:elevation="10dp"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to manage:"
+                android:fontFamily="@font/bariol_bold"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/singleManage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to manage."
+                android:fontFamily="@font/bariol_regular"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

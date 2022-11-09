@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -46,6 +47,7 @@ public class Report extends AppCompatActivity {
         recyclerView.setAdapter(reportAdapter);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
@@ -61,8 +63,8 @@ public class Report extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton writeReport = findViewById(R.id.writeReport);
-        writeReport.setOnClickListener(view -> {
+        Button btnWrite = findViewById(R.id.btnWrite);
+        btnWrite.setOnClickListener(view -> {
             Intent intent = new Intent(Report.this, WriteReport.class);
             startActivity(intent);
         });
@@ -76,5 +78,12 @@ public class Report extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 }

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/reports_bg"
     tools:context=".Login"
     android:focusableInTouchMode="true"
     android:gravity="center"
@@ -20,23 +21,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/viewParent.headerText.NoMode"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="17dp"
-                android:text="Already \nhave an \nAccount?"
-                android:textSize="30dp" />
-
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_login_hero" />
+                android:src="@drawable/leafcross_icon" />
         </RelativeLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:layout_marginTop="14dp" >
         <EditText
             android:id="@+id/txtEmail"
             style="@style/modifiedEditText"
@@ -44,16 +43,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:autofillHints="40"
-            android:background="@color/white"
+            android:background="@drawable/custom_input"
             android:ems="10"
-            android:fontFamily="@font/opensans"
-            android:hint="@string/email_address"
+            android:fontFamily="@font/bariol_regular"
+            android:hint="Username"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:paddingStart="12sp"
             android:paddingEnd="12sp"
             android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true">
         <EditText
             android:id="@+id/txtPassword"
             style="@style/modifiedEditText"
@@ -61,30 +68,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:autofillHints="40"
-            android:background="@color/white"
+            android:background="@drawable/custom_input"
             android:ems="10"
-            android:fontFamily="@font/opensans"
+            android:fontFamily="@font/bariol_regular"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:paddingStart="12sp"
             android:paddingEnd="12sp"
             android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             style="@style/viewParent"
             android:layout_marginTop="10dp"
             android:text="Forgot Password?"
+            android:visibility="gone"
+            android:fontFamily="@font/bariol_regular"
             android:textColor="@color/black"
-            android:textSize="@dimen/newsMoreTextSize" />x
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/btnLoginNow"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/btn_curve"
-            android:fontFamily="@font/opensans"
+            android:background="@drawable/btn_curvish"
+            android:fontFamily="@font/bariol_bold"
             android:text="@string/login"
             android:textColor="@color/white" />
 
@@ -93,9 +103,10 @@
             style="@style/parent"
             android:layout_marginTop="@dimen/loginViewsMargin"
             android:text="New user? Register Now"
+            android:fontFamily="@font/bariol_regular"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="21sp"
             android:textStyle="bold" />
 
 
@@ -116,10 +127,11 @@
                 style="@style/viewParent.headerText.NoMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/bariol_regular"
                 android:layout_weight="6"
                 android:text="Don't want to register?"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textSize="18sp" />
 
             <View
                 android:layout_width="0dp"
@@ -133,14 +145,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:gravity="center"></LinearLayout>
+            android:gravity="center">
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnNoAccount"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_curve"
-            android:fontFamily="@font/opensans"
+            android:background="@drawable/btn_curvish"
+            android:fontFamily="@font/bariol_bold"
             android:text="Continue with No Account"
             android:textColor="@color/white" />
     </LinearLayout>

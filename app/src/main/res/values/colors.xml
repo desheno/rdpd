@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkgreen">#384d0c</color>
+    <color name="lightish">#8bc34a </color>
 
     <color name="babyWhite">#f8f8f8</color>
     <color name="colorPrimaryDark">#384d0c</color>
@@ -22,4 +23,8 @@
     <color name="primaryTextColor">#fff</color>
 
     <color name="profileTextColor">#FF000000</color>
+
+    <color name="logoutButton">#FF7B7B</color>
+    <color name="grayish">#EEEEEE</color>
+
 </resources>
